@@ -1,7 +1,4 @@
-
-<div class="di"
-    style="height:540px; border:#999 1px solid; width:76.5%; margin:2px 0px 0px 0px; float:left; position:relative; left:20px;">
-    <!--正中央-->
+<div class="di" style="height:540px; border:#999 1px solid; width:76.5%; margin:2px 0px 0px 0px; float:left; position:relative; left:20px;">
     <table width="100%">
         <tbody>
             <tr>
@@ -15,8 +12,10 @@
             </tr>
         </tbody>
     </table>
+
     <div style="width:99%; height:87%; margin:auto; overflow:auto; border:#666 1px solid;">
         <p class="t cent botli">選單管理</p>
+        
         <form method="post" action="./api/edit.php?table=<?= $do ?>">
             <table width="100%">
                 <tbody>
@@ -28,9 +27,11 @@
                         <td width="10%">刪除</td>
                         <td width="10%"></td>
                     </tr>
+                    
                     <?php 
-                    $db=${ucfirst($do)};
-                    $rows=$db->all(['main_id'=>0]);
+                    $db = ${ucfirst($do)};
+                    // 1. 只撈出 main_id 為 0 的資料，代表這全是「主選單」
+                    $rows = $db->all(['main_id'=>0]);
                     foreach($rows as $row):
                     ?>
                     <tr>
@@ -41,22 +42,22 @@
                             <input type="text" name="href[]" value="<?= $row['href']; ?>">
                         </td>
                         <td><?= $Menu->count(['main_id'=>$row['id']]); ?></td>
+                        
                         <td>
-                            <input type="checkbox" name="sh[]" value="<?= $row['id']; ?>"  <?= ($row['sh']==1)?'checked':''; ?> >
-                        </td>                        
+                            <input type="checkbox" name="sh[]" value="<?= $row['id']; ?>" <?= ($row['sh']==1)?'checked':''; ?> >
+                        </td>
                         <td>
                             <input type="checkbox" name="del[]" value="<?= $row['id']; ?>">
                         </td>
                         <td>
-                            <input type="button" value="編輯次選單"  onclick="op('#cover','#cvr','include/submenu.php?id=<?= $row['id'];?>')">
+                            <input type="button" value="編輯次選單" onclick="op('#cover','#cvr','include/submenu.php?id=<?= $row['id'];?>')">
                         </td>
                         <input type="hidden" name="id[]" value="<?= $row['id']; ?>">
                     </tr>
-                    <?php
-                    endforeach;
-                    ?>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
+
             <table style="margin-top:40px; width:70%;">
                 <tbody>
                     <tr>
@@ -70,7 +71,6 @@
                     </tr>
                 </tbody>
             </table>
-
         </form>
     </div>
 </div>

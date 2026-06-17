@@ -1,6 +1,4 @@
-<div class="di"
-    style="height:540px; border:#999 1px solid; width:76.5%; margin:2px 0px 0px 0px; float:left; position:relative; left:20px;">
-    <!--正中央-->
+<div class="di" style="height:540px; border:#999 1px solid; width:76.5%; margin:2px 0px 0px 0px; float:left; position:relative; left:20px;">
     <table width="100%">
         <tbody>
             <tr>
@@ -14,8 +12,10 @@
             </tr>
         </tbody>
     </table>
+
     <div style="width:99%; height:87%; margin:auto; overflow:auto; border:#666 1px solid;">
         <p class="t cent botli">動畫圖片管理</p>
+        
         <form method="post" action="./api/edit.php?table=<?= $do ?>">
             <table width="100%">
                 <tbody>
@@ -25,32 +25,32 @@
                         <td width="10%">刪除</td>
                         <td></td>
                     </tr>
+                    
                     <?php 
-                    $db=${ucfirst($do)};
-                    $rows=$db->all();
-                     foreach($rows as $row):
+                    // 1. 動態取得資料庫物件 (如 $Mvim) 並撈出所有資料
+                    $db = ${ucfirst($do)};
+                    $rows = $db->all();
+                    foreach($rows as $row):
                     ?>
                     <tr>
                         <td>
                             <img src="./upload/<?= $row['img']; ?>" style="width:250px;height:120px">
                         </td>
                         <td>
-                            <input type="checkbox" name="sh[]" value="<?= $row['id']; ?>"  <?= ($row['sh']==1)?'checked':''; ?> >
+                            <input type="checkbox" name="sh[]" value="<?= $row['id']; ?>" <?= ($row['sh']==1)?'checked':''; ?> >
                         </td>
                         <td>
                             <input type="checkbox" name="del[]" value="<?= $row['id']; ?>">
                         </td>
                         <td>
-
-                            <input type="button" value="更換動畫"  onclick="op('#cover','#cvr','include/update_<?= $do; ?>.php?id=<?= $row['id'];?>')">
+                            <input type="button" value="更換動畫" onclick="op('#cover','#cvr','include/update_<?= $do; ?>.php?id=<?= $row['id'];?>')">
                         </td>
                         <input type="hidden" name="id[]" value="<?= $row['id']; ?>">
                     </tr>
-                    <?php
-                    endforeach;
-                    ?>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
+
             <table style="margin-top:40px; width:70%;">
                 <tbody>
                     <tr>
@@ -64,7 +64,6 @@
                     </tr>
                 </tbody>
             </table>
-
         </form>
     </div>
 </div>

@@ -1,6 +1,4 @@
-<div class="di"
-    style="height:540px; border:#999 1px solid; width:76.5%; margin:2px 0px 0px 0px; float:left; position:relative; left:20px;">
-    <!--正中央-->
+<div class="di" style="height:540px; border:#999 1px solid; width:76.5%; margin:2px 0px 0px 0px; float:left; position:relative; left:20px;">
     <table width="100%">
         <tbody>
             <tr>
@@ -14,8 +12,10 @@
             </tr>
         </tbody>
     </table>
+
     <div style="width:99%; height:87%; margin:auto; overflow:auto; border:#666 1px solid;">
         <p class="t cent botli">進站總人數管理</p>
+        
         <form method="post" action="./api/edit_value.php?table=<?= $do ?>">
             <table width="50%" style="margin:auto">
                 <tbody>
@@ -28,6 +28,7 @@
                     </tr>
                 </tbody>
             </table>
+
             <table style="margin-top:40px; width:70%;">
                 <tbody>
                     <tr>
@@ -39,7 +40,6 @@
                     </tr>
                 </tbody>
             </table>
-
         </form>
     </div>
 </div>

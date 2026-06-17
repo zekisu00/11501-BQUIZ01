@@ -1,6 +1,4 @@
-<div class="di"
-    style="height:540px; border:#999 1px solid; width:76.5%; margin:2px 0px 0px 0px; float:left; position:relative; left:20px;">
-    <!--正中央-->
+<div class="di" style="height:540px; border:#999 1px solid; width:76.5%; margin:2px 0px 0px 0px; float:left; position:relative; left:20px;">
     <table width="100%">
         <tbody>
             <tr>
@@ -14,8 +12,10 @@
             </tr>
         </tbody>
     </table>
+
     <div style="width:99%; height:87%; margin:auto; overflow:auto; border:#666 1px solid;">
         <p class="t cent botli">最新消息資料管理</p>
+        
         <form method="post" action="./api/edit.php?table=<?= $do ?>">
             <table width="100%">
                 <tbody>
@@ -25,55 +25,53 @@
                         <td width="10%">刪除</td>
                     </tr>
                     <?php 
-                    $db=${ucfirst($do)};
-                    $all=$db->count();
-                    $div=4;
-                    $pages=ceil($all/$div);
-                    $now=$_GET['p']??1;
-                    $start=($now-1)*$div;
+                    // 1. 動態取得資料庫物件
+                    $db = ${ucfirst($do)};
                     
-                    $rows=$db->all(" limit $start,$div");
-                     foreach($rows as $row):
+                    // 2. 分頁邏輯：計算總頁數，每頁 4 筆資料
+                    $all = $db->count();
+                    $div = 4;
+                    $pages = ceil($all / $div);
+                    $now = $_GET['p'] ?? 1;
+                    $start = ($now - 1) * $div;
+                    
+                    // 3. 只撈出當前分頁的資料
+                    $rows = $db->all(" limit $start,$div");
+                    foreach($rows as $row):
                     ?>
                     <tr>
                         <td width="80%">
-                            <textarea name="text[]" id="" style="width:95%;height:60px;"><?= $row['text']; ?></textarea>
+                            <textarea name="text[]" style="width:95%;height:60px;"><?= $row['text']; ?></textarea>
                         </td>
                         <td width="10%">
-                            <input type="checkbox" name="sh[]" value="<?= $row['id']; ?>"  <?= ($row['sh']==1)?'checked':''; ?> >
+                            <input type="checkbox" name="sh[]" value="<?= $row['id']; ?>" <?= ($row['sh']==1)?'checked':''; ?> >
                         </td>
                         <td width="10%">
                             <input type="checkbox" name="del[]" value="<?= $row['id']; ?>">
                         </td>
                         <input type="hidden" name="id[]" value="<?= $row['id']; ?>">
                     </tr>
-                    <?php
-                    endforeach;
-                    ?>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
+
             <div class='cent'>
                 <?php
-                    if($now-1 > 0){
-                        $prev=$now-1;
+                    if($now - 1 > 0){
+                        $prev = $now - 1;
                         echo "<a href='?do=$do&p=$prev'> < </a>";
                     }
-
-                    for($i=1;$i<=$pages;$i++){
-                        $size=($i==$now)?'20px':'16px';
+                    for($i = 1; $i <= $pages; $i++){
+                        $size = ($i == $now) ? '20px' : '16px';
                         echo "<a href='?do=$do&p=$i' style='font-size:$size'> $i </a>";
-
                     }
-
-                    if($now+1 <= $pages){
-                        $next=$now+1;
+                    if($now + 1 <= $pages){
+                        $next = $now + 1;
                         echo "<a href='?do=$do&p=$next'> > </a>";
                     }
-                    
                 ?>
-
-
             </div>            
+            
             <table style="margin-top:40px; width:70%;">
                 <tbody>
                     <tr>
@@ -87,7 +85,6 @@
                     </tr>
                 </tbody>
             </table>
-
         </form>
     </div>
 </div>

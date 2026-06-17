@@ -1,6 +1,4 @@
-<div class="di"
-    style="height:540px; border:#999 1px solid; width:76.5%; margin:2px 0px 0px 0px; float:left; position:relative; left:20px;">
-    <!--正中央-->
+<div class="di" style="height:540px; border:#999 1px solid; width:76.5%; margin:2px 0px 0px 0px; float:left; position:relative; left:20px;">
     <table width="100%">
         <tbody>
             <tr>
@@ -14,8 +12,10 @@
             </tr>
         </tbody>
     </table>
+
     <div style="width:99%; height:87%; margin:auto; overflow:auto; border:#666 1px solid;">
         <p class="t cent botli">網站標題管理</p>
+        
         <form method="post" action="./api/edit.php?table=<?= $do ?>">
             <table width="100%">
                 <tbody>
@@ -26,10 +26,13 @@
                         <td width="7%">刪除</td>
                         <td></td>
                     </tr>
+                    
                     <?php 
-                    $db=${ucfirst($do)};
-                    $rows=$db->all();
-                     foreach($rows as $row):
+                    // 1. 動態取得資料表物件 (例如 $do='title' -> $db=$Title)
+                    $db = ${ucfirst($do)};
+                    // 2. 取出所有標題圖片資料
+                    $rows = $db->all();
+                    foreach($rows as $row):
                     ?>
                     <tr>
                         <td width="45%">
@@ -39,22 +42,20 @@
                             <input type="text" name="text[]" value="<?= $row['text']; ?>">
                         </td>
                         <td width="7%">
-                            <input type="radio" name="sh" value="<?= $row['id']; ?>"  <?= ($row['sh']==1)?'checked':''; ?> >
+                            <input type="radio" name="sh" value="<?= $row['id']; ?>" <?= ($row['sh']==1)?'checked':''; ?> >
                         </td>
                         <td width="7%">
                             <input type="checkbox" name="del[]" value="<?= $row['id']; ?>">
                         </td>
                         <td>
-
-                            <input type="button" value="更新圖片"  onclick="op('#cover','#cvr','include/update_<?= $do; ?>.php?id=<?= $row['id'];?>')">
+                            <input type="button" value="更新圖片" onclick="op('#cover','#cvr','include/update_<?= $do; ?>.php?id=<?= $row['id'];?>')">
                         </td>
                         <input type="hidden" name="id[]" value="<?= $row['id']; ?>">
                     </tr>
-                    <?php
-                    endforeach;
-                    ?>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
+
             <table style="margin-top:40px; width:70%;">
                 <tbody>
                     <tr>
@@ -68,7 +69,6 @@
                     </tr>
                 </tbody>
             </table>
-
         </form>
     </div>
 </div>
